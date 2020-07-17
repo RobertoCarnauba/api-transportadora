@@ -15,29 +15,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.transporte.entities.Trasportadora;
-import com.transporte.services.TrasportadoraService;
+import com.transporte.entities.Cliente;
+import com.transporte.services.ClienteService;
 
 @RestController
-@RequestMapping("/trasportadora")
-public class TraspotadoraResource {
+@RequestMapping("/clientes")
+public class ClienteResource {
 	@Autowired
-	private TrasportadoraService service; 
+	private ClienteService service; 
 	
 	@GetMapping
-	public ResponseEntity<List<Trasportadora>> finAll(){
-		List<Trasportadora> list = service.findAll();
+	public ResponseEntity<List<Cliente>> finAll(){
+		List<Cliente> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Trasportadora> findById(@PathVariable String id){
-		Trasportadora obj = service.findById(id); 
-		return ResponseEntity.ok().body(obj);	
+	public ResponseEntity<Cliente> findById(@PathVariable Integer id){
+		Cliente obj = service.findById(id); 
+		return ResponseEntity.ok().body(obj);
+		
 	}
 	
 	@PostMapping
-	public ResponseEntity<Trasportadora> insert(@RequestBody Trasportadora obj) {
+	public ResponseEntity<Cliente> insert(@RequestBody Cliente obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{/id}")
 				.buildAndExpand(obj.getId()).toUri();
@@ -45,16 +46,18 @@ public class TraspotadoraResource {
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> delete(@PathVariable String id) throws Exception{
+	public ResponseEntity<Void> delete(@PathVariable Integer id) throws Exception{
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Trasportadora> update(@PathVariable String id,@RequestBody Trasportadora obj) throws Exception {
+	public ResponseEntity<Cliente> update(@PathVariable Integer id,@RequestBody Cliente obj) throws Exception {
 		obj = service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 		
 	}
+	
+
 
 }

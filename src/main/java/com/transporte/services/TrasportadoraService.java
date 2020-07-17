@@ -3,7 +3,11 @@ package com.transporte.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.transporte.entities.Trasportadora;
@@ -22,6 +26,39 @@ public class TrasportadoraService {
 	public Trasportadora findById(String id) {
 		Optional<Trasportadora> obj = repository.findById(id);
 		return obj.get();
+	}
+
+	public Trasportadora insert(Trasportadora obj) {
+		return repository.save(obj);
+	}
+	
+	public void delete(String id) throws Exception {
+		try {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new Exception(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new Exception(e.getMessage());
+		}
+	}
+	
+	public Trasportadora update(String id, Trasportadora obj) throws Exception {
+		try {
+			Trasportadora entity = repository.getOne(id);
+			updateData(entity, obj);
+			return repository.save(entity);
+		} catch(EntityNotFoundException e) {
+			throw new Exception(id);
+		}
+		
+	}
+
+	private void updateData(Trasportadora entity, Trasportadora obj) {
+		entity.setName(obj.getName());
+		entity.setEndereco(obj.getEndereco());
+		entity.setEmail(obj.getEmail());
+		entity.setPassword(obj.getPassword());
+		entity.setPhone(obj.getPhone());
 	}
 
 }
