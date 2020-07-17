@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.transporte.entities.Cliente;
+import com.transporte.entities.Endereco;
 import com.transporte.entities.Mudanca;
 import com.transporte.entities.Orcamento;
 import com.transporte.entities.Trasportadora;
@@ -38,22 +39,24 @@ public class TestConfig implements CommandLineRunner{
 	
     @Override
 	public void run(String... args) throws Exception {
-    	Trasportadora t1 = new Trasportadora(null, "Super FastTrans", "52221710000145", "rua um 132", "email@email.com", "password123", "11961063734");
-		Trasportadora t2 = new Trasportadora(null, "Trans SameThings", "52221710000145", "rua um 132", "email@email.com", "password123", "11961063734");
-    	Trasportadora t3 = new Trasportadora(null, "Super FastTrans", "52221710000145", "rua um 132", "email@email.com", "password123", "11961063734");
-    	Trasportadora t4 = new Trasportadora(null, "Super FastTrans", "52221710000145", "rua um 132", "email@email.com", "password123", "11961063734");
+    	
+    	Endereco end = new Endereco(1);
+    	Endereco end1 = new Endereco(2);
+    	
+    	Trasportadora t1 = new Trasportadora(null, "Trans Rapidão", "49665753000105",end, "trasportadora@email.com", "password123", "17963236987");
+    	Trasportadora t2 = new Trasportadora(null, "DevTransporte", "27244611000131",end1, "trasportadora@email.com", "123password", "11996897863");
+
 		
-		repository.saveAll(Arrays.asList(t1, t2, t3, t4));
+		repository.saveAll(Arrays.asList(t1, t2));
 		
-		Cliente c1 = new Cliente(null, "Roberto Carnaúba Dias");
-		Cliente c2 = new Cliente(null, "Pedro Coellho");
-		Cliente c3 = new Cliente(null, "Madame Gazela");
+		Cliente c1 = new Cliente(null, "Roberto C Dias", end, "email@test.com", "email123", "11963238498");
+		Cliente c2 = new Cliente(null, "Thiago  Mininão", end, "email@test.com", "email123", "11963238498");
+		Cliente c3 = new Cliente(null, "Bruno du Cabo", end, "email@test.com", "email123", "11963238498");
 		
 		clienteRepository.saveAll(Arrays.asList(c1, c2, c3));
-		
-		Orcamento orc1 = new Orcamento(null, c1, "enderecoOrigem", "enderecoDestino", "dataDesejada", "dataLimite", Instant.parse("2020-07-20T15:21:22Z"), OrcamentoStatus.Aceito);
-		Orcamento orc2 = new Orcamento(null, c1, "enderecoOrigem", "enderecoDestino", "dataDesejada", "dataLimite", Instant.parse("2020-07-20T15:21:22Z"), OrcamentoStatus.Recusado);
-		Orcamento orc3 = new Orcamento(null, c1, "enderecoOrigem", "enderecoDestino", "dataDesejada", "dataLimite", Instant.parse("2020-07-20T15:21:22Z"), OrcamentoStatus.Recusado);
+		Orcamento orc1 = new Orcamento(null, c1, end, end1, "17/08/2020", "17/08/2020", Instant.parse("2020-07-17T15:21:22Z"), OrcamentoStatus.Aceito);
+		Orcamento orc2 = new Orcamento(null, c1,  end, end1, "19/08/2020", "17/08/2020", Instant.parse("2020-07-10T15:21:22Z"), OrcamentoStatus.Recusado);
+		Orcamento orc3 = new Orcamento(null, c1,  end, end1, "7/10/2020", "17/08/2020", Instant.parse("2020-07-10T15:21:22Z"), OrcamentoStatus.Recusado);
 		
 		orcamentoRepository.saveAll(Arrays.asList(orc1, orc2, orc3));
 		

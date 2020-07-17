@@ -20,6 +20,7 @@ public class Mudanca implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Integer mudancaStatus;
+	
 	@ManyToMany(mappedBy = "mudancas")
 	private Set<Orcamento> orcamentos = new HashSet<>();
 	

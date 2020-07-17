@@ -19,7 +19,7 @@ import com.transporte.entities.Trasportadora;
 import com.transporte.services.TrasportadoraService;
 
 @RestController
-@RequestMapping("/trasportadora")
+@RequestMapping("/transportadoras")
 public class TraspotadoraResource {
 	@Autowired
 	private TrasportadoraService service; 
@@ -31,7 +31,7 @@ public class TraspotadoraResource {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Trasportadora> findById(@PathVariable String id){
+	public ResponseEntity<Trasportadora> findById(@PathVariable Integer id){
 		Trasportadora obj = service.findById(id); 
 		return ResponseEntity.ok().body(obj);	
 	}
@@ -45,13 +45,13 @@ public class TraspotadoraResource {
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> delete(@PathVariable String id) throws Exception{
+	public ResponseEntity<Void> delete(@PathVariable Integer id) throws Exception{
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Trasportadora> update(@PathVariable String id,@RequestBody Trasportadora obj) throws Exception {
+	public ResponseEntity<Trasportadora> update(@PathVariable Integer id,@RequestBody Trasportadora obj) throws Exception {
 		obj = service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 		

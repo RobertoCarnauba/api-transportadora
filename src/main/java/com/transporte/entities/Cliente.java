@@ -1,16 +1,11 @@
 package com.transporte.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Cliente implements Serializable {
@@ -20,18 +15,23 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	@JsonIgnore
-	@OneToMany(mappedBy = "clientid")
-	private List<Orcamento> orcamentos = new ArrayList<>();
+	private Endereco endereco;
+	private String email;
+	private String password;
+	private String phone;
 	
 	public Cliente() {
 		
 	}
 
-	public Cliente(Integer id, String nome) {
+	public Cliente(Integer id, String nome, Endereco endereco, String email, String password, String phone) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.endereco = endereco;
+		this.email = email;
+		this.password = password;
+		this.phone = phone;
 	}
 
 	public Integer getId() {
@@ -49,37 +49,41 @@ public class Cliente implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	
-	public List<Orcamento> getOrcamentos() {
-		return orcamentos;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cliente other = (Cliente) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
-
-
+	
 
 	
+
 }

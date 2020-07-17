@@ -23,7 +23,7 @@ public class TrasportadoraService {
 		return repository.findAll();
 	}
 	
-	public Trasportadora findById(String id) {
+	public Trasportadora findById(Integer id) {
 		Optional<Trasportadora> obj = repository.findById(id);
 		return obj.get();
 	}
@@ -32,23 +32,23 @@ public class TrasportadoraService {
 		return repository.save(obj);
 	}
 	
-	public void delete(String id) throws Exception {
+	public void delete(Integer id) throws Exception {
 		try {
 			repository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
-			throw new Exception(id);
+			throw new Exception(e);
 		} catch (DataIntegrityViolationException e) {
 			throw new Exception(e.getMessage());
 		}
 	}
 	
-	public Trasportadora update(String id, Trasportadora obj) throws Exception {
+	public Trasportadora update(Integer id, Trasportadora obj) throws Exception {
 		try {
 			Trasportadora entity = repository.getOne(id);
 			updateData(entity, obj);
 			return repository.save(entity);
 		} catch(EntityNotFoundException e) {
-			throw new Exception(id);
+			throw new Exception(e);
 		}
 		
 	}

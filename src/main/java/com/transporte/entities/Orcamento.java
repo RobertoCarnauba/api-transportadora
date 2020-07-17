@@ -9,10 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.transporte.entities.enums.OrcamentoStatus;
 
@@ -24,25 +22,23 @@ public class Orcamento implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@ManyToOne
-	@JoinColumn(name = "client_id")
 	private Cliente clientid;
-	private String enderecoOrigem;
-	private String enderecoDestino;
+	//Preciso de um ajuda para aresolver esse dois relacioanmetos.
+	private Endereco enderecoOrigem;
+	private Endereco enderecoDestino;
 	private String dataDesejada;
 	private String dataLimite;
 	private Instant dataProposta;
 	private Integer orcamentoStatus ;
 	
-	@ManyToMany
-	@JoinTable(name = "tb_mudanca", joinColumns = @JoinColumn(name = "orcamento_id"),
-	inverseJoinColumns = @JoinColumn(name = "mudancas"))
+    @OneToMany
 	private Set<Mudanca> mudancas = new HashSet<>();
 
 	public Orcamento() {
 		
 	}
 
-	public Orcamento(Integer id, Cliente clientid, String enderecoOrigem, String enderecoDestino, String dataDesejada,
+	public Orcamento(Integer id, Cliente clientid, Endereco enderecoOrigem, Endereco enderecoDestino, String dataDesejada,
 			String dataLimite, Instant instant, OrcamentoStatus orcamentoStatus) {
 		super();
 		this.id = id;
@@ -64,19 +60,19 @@ public class Orcamento implements Serializable {
 	}
 
 
-	public String getEnderecoOrigem() {
+	public Endereco getEnderecoOrigem() {
 		return enderecoOrigem;
 	}
 
-	public void setEnderecoOrigem(String enderecoOrigem) {
+	public void setEnderecoOrigem(Endereco enderecoOrigem) {
 		this.enderecoOrigem = enderecoOrigem;
 	}
 
-	public String getEnderecoDestino() {
+	public Endereco getEnderecoDestino() {
 		return enderecoDestino;
 	}
 
-	public void setEnderecoDestino(String enderecoDestino) {
+	public void setEnderecoDestino(Endereco enderecoDestino) {
 		this.enderecoDestino = enderecoDestino;
 	}
 

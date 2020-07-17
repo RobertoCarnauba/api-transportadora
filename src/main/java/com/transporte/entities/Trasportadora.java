@@ -13,10 +13,11 @@ public class Trasportadora implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String id;
+	private Integer id;
     private String name;
     private String cnpj;
-    private String endereco;
+  
+    private Endereco endereco;
     private String email;
     private String password;
     private String phone;
@@ -25,7 +26,7 @@ public class Trasportadora implements Serializable {
     	
     }
 
-	public Trasportadora(String id, String name, String cnpj, String endereco, String email, String password,String phone) {
+	public Trasportadora(Integer id, String name, String cnpj, Endereco endereco, String email, String password,String phone) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -36,11 +37,11 @@ public class Trasportadora implements Serializable {
 		this.phone = phone;
 	}
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -60,11 +61,11 @@ public class Trasportadora implements Serializable {
 		this.cnpj = cnpj;
 	}
 
-	public String getEndereco() {
+	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(String endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 
